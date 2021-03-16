@@ -11,12 +11,6 @@ body {
     margin: 0;
 }
 
-/* main grid container */
-.wrapper {
-    width: 400px;
-    display: grid;
-}
-
 /* attribute selector to style all grid items */
 [class*="col-"], .output {
     padding: 10px 5px;
@@ -27,8 +21,14 @@ body {
 
 /* hover state for all column buttons */
 [class*="col-"]:hover {
-    background: rgb(171, 118, 255);
-    transition: all 0.3s ease;
+    background: rgb(145, 77, 255);
+    transition: all 0.1s ease;
+}
+
+/* hover state for all column buttons */
+[class*="col-"]:active {
+    background: rgb(255, 77, 77);
+    transition: all 0.1s ease;
 }
 
 /* styling for number buttons */
@@ -41,6 +41,11 @@ body {
 }
 
 
+/* main grid container */
+.wrapper {
+    width: 400px;
+    display: grid;
+}
 
 /* screen is first row in main grid */
 .calculator-screen {
@@ -53,6 +58,9 @@ body {
 .output {
     grid-column: 1/2;
     text-align: right;
+    color: white;
+    background: black;
+    border: 0;
 }
 
 
