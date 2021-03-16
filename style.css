@@ -12,11 +12,12 @@ body {
 }
 
 /* attribute selector to style all grid items */
-[class*="col-"], .output {
+[class*="col-"]{
     padding: 10px 5px;
     border: 1px solid;
     text-align: center;
     font-size: 30px;
+    font-family: 'Orbitron', sans-serif;
 }
 
 /* hover state for all column buttons */
@@ -56,8 +57,11 @@ body {
 
 /* screen has a nested grid with one item: output text */
 .output {
+    padding: 10px 5px;
     grid-column: 1/2;
     text-align: right;
+    font-size: 20px;
+    font-family: 'Orbitron', sans-serif;
     color: white;
     background: black;
     border: 0;
