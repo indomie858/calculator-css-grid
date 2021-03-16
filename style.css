@@ -1,12 +1,14 @@
 html {
     box-sizing: border-box;
 }
+
 *, *:before, *:after {
     box-sizing: inherit;
 }
+
 body {
-  padding: 0;
-  margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
 /* main grid container */
@@ -15,11 +17,45 @@ body {
     display: grid;
 }
 
+/* attribute selector to style all grid items */
+[class*="col-"], .output {
+    padding: 10px 5px;
+    border: 1px solid;
+    text-align: center;
+    font-size: 30px;
+}
+
+/* hover state for all column buttons */
+[class*="col-"]:hover {
+    background: rgb(171, 118, 255);
+    transition: all 0.3s ease;
+}
+
+/* styling for number buttons */
+.col-num {
+    background: rgb(230, 230, 230);
+}
+/* styling for math operator buttons */
+.col-operator {
+    background: rgb(255, 145, 0);
+}
+
+
+
 /* screen is first row in main grid */
 .calculator-screen {
     grid-column: 1/2;
     grid-row: 1/2;
+    display: grid;
 }
+
+/* screen has a nested grid with one item: output text */
+.output {
+    grid-column: 1/2;
+    text-align: right;
+}
+
+
 
 /* buttons are in second row of main grid. this row has a nested grid with all the buttons */
 .calculator-buttons {
@@ -27,8 +63,6 @@ body {
     grid-row: 2/3;
     display: grid;
 }
-/* end main grid container */
-
 
 /* nested grid items - calculator buttons*/
 /* nested grid row 1 */
