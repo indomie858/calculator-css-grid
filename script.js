@@ -1,5 +1,5 @@
 // calculator object to track values
-const calculator = {
+const calculatorObj = {
     operator: null,
     operand: null,
     waitForOperand: false,
@@ -9,37 +9,91 @@ const calculator = {
 // this updates calculator screen output
 function updateScreen() {
     const output = document.querySelector('.output');
-    output.value = calculator.outputNum;
+    output.value = calculatorObj.outputNum;
 }
 
 // this handles numbers pressed
 function input(number) {
-    const outputNum = calculator.outputNum;
-    // appends number to output if it's not zero
-    if (outputNum === '0') {
-        calculator.outputNum = number;
+    const outputNum = calculatorObj.outputNum;
+    const waitForOperand = calculatorObj.waitForOperand;
+    // this ensures second operand is not appended to first operand
+    if (waitForOperand === true) {
+        calculatorObj.outputNum = number;
+        calculatorObj.waitForOperand = false;
     } else {
-        calculator.outputNum = outputNum + number;
+        // appends number to output if it's not zero
+        if (outputNum === '0') {
+            calculatorObj.outputNum = number;
+        } else {
+            calculatorObj.outputNum = outputNum + number;
+        }
     }
 }
 
 // handles when operators are pressed
-function handleOperator(nextOperator) {
-    const operand = calculator.operand;
-    const operator = calculator.operand;
-    const outputNum = calculator.outputNum;
+function handleOperators(nextOperator) {
+    const operand = calculatorObj.operand;
+    const operator = calculatorObj.operator;
+    const outputNum = calculatorObj.outputNum;
     const numFromStr = parseFloat(outputNum);
-
+    
     //verifies numFromStr is a number, and operand is empty, then assign num to operand
     if (!isNaN(numFromStr) && operand === null) {
-        calculator.operand = numFromStr;
+        calculatorObj.operand = numFromStr;
+    } else if (operator) {
+        const calculation = calculate(operand, numFromStr, operator);
+        calculatorObj.firstOperand = calculation;
+        calculatorObj.outputNum = String(calculation);
     }
-
-    calculator.waitForOperand = true;
-    calculator.operator = nextOperator;
-    console.log(calculator);
+    //updates calculator object with next operator
+    calculatorObj.operator = nextOperator;
+    calculatorObj.waitForOperand = true;
+    console.log(calculatorObj);
 }
 
+//this resets the calculator object back to default values
+function reset() {
+    calculatorObj.operator = null;
+    calculatorObj.operand = null;
+    calculatorObj.waitForOperand = false;
+    calculatorObj.outputNum = '0';
+}
+
+// this handles backspace button event
+function backspace() {
+    const outputNum = calculatorObj.outputNum;
+
+    //returns if value is 0
+    if (outputNum === '0' || outputNum === 0) {
+        return;
+    } else if (outputNum > 0 && outputNum < 10) {
+        //reset display to zero if backspacing on single digit number
+        calculatorObj.outputNum = '0';
+        return;
+    }
+
+    // removes last character from display, which is like backspacing
+    calculatorObj.outputNum = outputNum.slice(0, -1);
+}
+
+// this handles actual mathematical operations. pass in operator and both operands and returns calculated result
+function calculate(operand1, operand2, operator) {
+    // each case is an artithmetic operator
+    switch (operator) {
+        case '+':
+            return operand1 + operand2;
+        case '-':
+            return operand1 - operand2;
+        case '÷':
+            return operand1 / operand2;
+        case '×':
+            return operand1 * operand2;
+        case '=':
+            return operand2;
+    }
+}
+
+//update screen with default value of 0
 updateScreen();
 
 document.querySelector('.calculator-buttons').addEventListener('click', function (event) {
@@ -51,18 +105,22 @@ document.querySelector('.calculator-buttons').addEventListener('click', function
     // when reset button is clicked
     if (event.target.classList.contains('reset')) {
         console.log('reset', event.target.innerText);
+        reset();
+        updateScreen();
         return;
     }
 
     // when backspace button is clicked
     if (event.target.classList.contains('backspace')) {
         console.log('backspace', event.target.innerText);
+        backspace();
+        updateScreen();
         return;
     }
 
     //when any operator is clicked
     if (event.target.classList.contains('operator')) {
-        handleOperator(event.target.innerText);
+        handleOperators(event.target.innerText);
         updateScreen();
         return;
     }
