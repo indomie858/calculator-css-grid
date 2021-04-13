@@ -20,39 +20,41 @@
 <body>
   <div class="wrapper">
     <section class="calculator-screen">
-      <input type="text" class="output" value="0" readonly>
+      <input type="text" class="output" value="" readonly>
     </section>
 
     <section class="calculator-buttons">
       <!-- row 1: reset(2 columns), backspace, divide -->
       <button class="col-num reset">C</button>
       <button class="col-num backspace">&#8592;</button>
-      <button class="col-operator divide">&#247;</button>
+      <button class="col-operator divide operator">&#247;</button>
 
       <!-- row 2: 7, 8, 9, multiply -->
       <button class="col-num seven">7</button>
       <button class="col-num eight">8</button>
       <button class="col-num nine">9</button>
-      <button class="col-operator multiply">&#215;</button>
+      <button class="col-operator multiply operator">&#215;</button>
 
       <!-- row 3: 4, 5, 6, subtract -->
       <button class="col-num four">4</button>
       <button class="col-num five">5</button>
       <button class="col-num six">6</button>
-      <button class="col-operator subtract">&#8722;</button>
+      <button class="col-operator subtract operator">&#8722;</button>
 
       <!-- row 4: 1, 2, 3, add -->
       <button class="col-num one">1</button>
       <button class="col-num two">2</button>
       <button class="col-num three">3</button>
-      <button class="col-operator add">&#43;</button>
+      <button class="col-operator add operator">&#43;</button>
 
       <!-- row 5: 0(3 columns), equals-->
       <button class="col-num zero">0</button>
-      <button class="col-operator equals">&#61;</button>
+      <button class="col-operator equals operator">&#61;</button>
 
     </section>
   </div>
+
+  <script src="script.js"></script>
 </body>
 
 </html>
